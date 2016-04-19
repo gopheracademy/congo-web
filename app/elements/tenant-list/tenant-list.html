@@ -1,24 +1,41 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
 
 <dom-module id="tenant-list">
     <style>
-        :host {
-
-        }
+      iron-selector > * {
+        padding: 8px;
+      }
+      .horizontal-section {
+        padding: 0;
+      }
+      .iron-selected {
+        background-color: var(--google-blue-500);
+        color: white;
+      }
+    
     </style>
     <template>
         <iron-ajax auto url="http://localhost:8080/api/tenants" handle-as="json" verbose="true" last-response="{{ajaxResponse}}"></iron-ajax>
-	<template is="dom-repeat" items="{{ajaxResponse}}">
-    <ul>
-	    <li><span><a href$="{{baseUrl}}tenants/{{item.id}}">{{item.name}}</a></span></li>
-    </ul>
-            <tenant-info tenant="{{item}}"></tenant-info>
-        </template>
+	    <iron-selector attr-for-selected="tenantid" selected="1" on-iron-select="_itemSelected">
+        <template is="dom-repeat" items="{{ajaxResponse}}">
+ 	 	    <div tenantid="{{item.id}}">{{item.name}}</div>
+  	    </template>
+        </iron-selector>
+        <tenant-info></tenant-info>
     </template>
 </dom-module>
 
 <script>
     Polymer({
-        is: "tenant-list"
+        is: "tenant-list",
+        properties: {
+            selectedTenant: String
+        },
+        _itemSelected: function(e, detail)
+        {
+            console.log("selected e:" + e);
+            console.log("selected detail:" + detail.selected);
+        }
     });
 </script>
