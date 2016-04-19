@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="tenant-list">
+    <style>
+        :host {
+
+        }
+    </style>
+    <template>
+        <iron-ajax auto url="http://localhost:8080/api/tenants" handle-as="json" verbose="true" last-response="{{ajaxResponse}}"></iron-ajax>
+	<template is="dom-repeat" items="{{ajaxResponse}}">
+    <ul>
+	    <li><span><a href$="{{baseUrl}}tenants/{{item.id}}">{{item.name}}</a></span></li>
+    </ul>
+            <tenant-info tenant="{{item}}"></tenant-info>
+        </template>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "tenant-list"
+    });
+</script>

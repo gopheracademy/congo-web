@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="tenant-info">
+    <style>
+        :host {
+
+        }
+    </style>
+    <template>
+    <ul>
+        <li><span>{{tenant.id}}</span></li>
+	    <li><span>{{tenant.name}}</span></li>
+    </ul>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "tenant-info",
+        properties: {
+            tenantid: String,
+            tenant: {
+                type: Object
+            }
+        }
+    });
+</script>
